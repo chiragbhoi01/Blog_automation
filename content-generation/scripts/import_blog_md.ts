@@ -255,9 +255,11 @@ async function main() {
       if (match) authorId = match._id;
     }
     if (!authorId && authors.length > 0) {
-      // Prefer Manish Bulchandani or first available
-      const manish = authors.find((a) => a.name.toLowerCase().includes('manish'));
-      authorId = manish ? manish._id : (authors[0]?._id || '');
+      // Default to Team Demoly
+      const teamDemoly = authors.find(
+        (a) => a.name.toLowerCase().includes('team demoly') || a.slug.includes('team-demoly')
+      );
+      authorId = teamDemoly ? teamDemoly._id : (authors[0]?._id || '');
     }
 
     // 2. Resolve Category

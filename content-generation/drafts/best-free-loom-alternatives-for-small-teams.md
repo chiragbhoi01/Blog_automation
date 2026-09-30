@@ -4,6 +4,7 @@ slug: "best-free-loom-alternatives-for-small-teams"
 excerpt: "Looking for free Loom alternatives? Discover the top tools for small teams that offer longer recordings, visual search, and zero viewer seat costs."
 seoTitle: "Best Free Loom Alternatives for Small Teams in 2026"
 seoDescription: "Compare the 6 best free Loom alternatives for small teams. Evaluate recording limits, visual searchability, and client handover workflows."
+author: "Team Demoly"
 category: "Comparisons"
 tags: ["Screen Recording", "Client Handoffs", "Agencies", "AI Video Search"]
 featuredImage: "assets/best-free-loom-alternatives-for-small-teams-cover.jpg"
