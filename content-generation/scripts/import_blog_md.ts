@@ -14,6 +14,7 @@ import { postRepository } from '../src/repositories/post.repository';
 import { authorRepository } from '../src/repositories/author.repository';
 import { categoryRepository } from '../src/repositories/category.repository';
 import { tagRepository } from '../src/repositories/tag.repository';
+import { uploadCoverImage } from '../src/services/cloudinary.service';
 import { convertMarkdownToHtml } from '../src/utils/markdown-to-html';
 import { getMongoClient } from '../src/lib/mongodb';
 
@@ -311,8 +312,43 @@ async function main() {
       }
     }
 
-    // 4. Upsert Post (Update if exists, Create if new)
+    // 4. Lookup Existing Post
     const existingPost = await postRepository.findBySlug(parsed.slug);
+
+    // 5. Resolve Featured Cover Image (Upload to Cloudinary if local file exists)
+    let finalCoverImageUrl = parsed.featuredImage || (existingPost?.featuredImage ? existingPost.featuredImage : '');
+
+    const candidateImagePaths: string[] = [];
+    if (parsed.featuredImage && !parsed.featuredImage.startsWith('http://') && !parsed.featuredImage.startsWith('https://')) {
+      candidateImagePaths.push(
+        path.resolve(path.dirname(resolvedPath), parsed.featuredImage),
+        path.resolve(process.cwd(), parsed.featuredImage)
+      );
+    }
+    // Default asset naming patterns
+    candidateImagePaths.push(
+      path.resolve(path.dirname(resolvedPath), 'assets', `${parsed.slug}-cover.jpg`),
+      path.resolve(path.dirname(resolvedPath), 'assets', `${parsed.slug}-cover.png`),
+      path.resolve(path.dirname(resolvedPath), 'assets', `${parsed.slug}-cover.webp`),
+      path.resolve(path.dirname(resolvedPath), 'assets', `${parsed.slug}.jpg`),
+      path.resolve(path.dirname(resolvedPath), 'assets', `${parsed.slug}.png`),
+      path.resolve(process.cwd(), 'drafts', 'assets', `${parsed.slug}-cover.jpg`)
+    );
+
+    const uniqueCandidatePaths = Array.from(new Set(candidateImagePaths));
+    for (const imgPath of uniqueCandidatePaths) {
+      if (fs.existsSync(imgPath)) {
+        console.log(`\n[FOUND COVER IMAGE] ${path.relative(process.cwd(), imgPath)}`);
+        const uploadRes = await uploadCoverImage(imgPath, `${parsed.title} Cover`);
+        if (uploadRes) {
+          finalCoverImageUrl = uploadRes.url;
+          console.log(`[OK] Cloudinary Live URL: ${finalCoverImageUrl}`);
+          break;
+        }
+      }
+    }
+
+    // 6. Upsert Post (Update if exists, Create if new)
     let targetPost;
 
     const postPayload = {
@@ -323,7 +359,7 @@ async function main() {
       authorId,
       categoryId,
       tagIds: resolvedTagIds,
-      featuredImage: parsed.featuredImage || (existingPost?.featuredImage ? existingPost.featuredImage : ''),
+      featuredImage: finalCoverImageUrl,
       status: 'DRAFT' as const,
       seo: {
         seoTitle: parsed.seoTitle,
@@ -334,7 +370,7 @@ async function main() {
 
     if (existingPost) {
       targetPost = await postRepository.update(existingPost._id, postPayload);
-      console.log(`\n[UPDATED] Existing draft post was updated with category and tag links.`);
+      console.log(`\n[UPDATED] Existing draft post was updated with image, category, and tag links.`);
     } else {
       targetPost = await postRepository.create(postPayload);
     }
