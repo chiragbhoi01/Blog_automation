@@ -26,7 +26,7 @@ Blueprint column: `READY` (Vertical 2 only, per current source material) or `PEN
 |---|---|---|---|
 | V2-REF | Best Loom Alternatives for Tech Agencies | APPROVED_SAMPLE | The approved sample this entire blueprint was derived from |
 | V2-01 | Best Free Loom Alternatives for Small Teams | DRAFT_CREATED | |
-| V2-02 | Best Scribe Alternatives for Web App Walkthroughs | PENDING | |
+| V2-02 | Best Scribe Alternatives for Web App Walkthroughs | DRAFT_CREATED | |
 | V2-03 | Best Tango Alternatives for Process Documentation | PENDING | |
 | V2-04 | Best Guidde Alternatives for Product Documentation | PENDING | |
 | V2-05 | Best Supademo Alternatives for Client Handoffs | PENDING | |

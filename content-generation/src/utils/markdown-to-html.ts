@@ -102,9 +102,9 @@ export function convertMarkdownToHtml(markdown: string): string {
       continue;
     }
 
-    if (inList) {
-      htmlLines.push('</ul>');
-      inList = false;
+    // Horizontal dividers (omit from output to keep clean editorial spacing)
+    if (line === '---' || line === '***' || line === '___' || /^[-*_]{3,}$/.test(line)) {
+      continue;
     }
 
     // Paragraph
