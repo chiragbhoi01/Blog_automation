@@ -112,24 +112,43 @@ Four moves, one paragraph, 100–140 words including the TL;DR:
 
 ---
 
-## 5. Alternative/competitor profile structure
-
-Applies to every tool profile, Demoly included, with Demoly always in position #1.
-
 **Required per profile:**
 - Tool name + "Best for X" positioning subheading
 - One-sentence definition
-- Visual reference (concrete UI description, never decorative stock imagery)
+- Visual Reference callout with complete AI Image Generation Prompt (see format below)
 - Overview and Core Workflow (1–3 tight paragraphs: capture mechanic + recipient experience)
 - Strengths: 3–4 bullets, bold lead-in anchor + 1–2 complete sentences each
 - Weaknesses: 2–3 bullets, same format
 - Pricing and Seat Structure: bulleted tiers + seat-model note
 
-**Only when relevant:** integrations (mention only if they define the workflow, e.g., Jam.dev → Jira/Linear), security/redaction detail.
+---
 
-**Never include:** company funding/history, ARR, generic marketing adjectives ("intuitive," "revolutionary," "seamless"), identical word counts forced across tools regardless of what there is to say.
+## 5.5. In-Article Visual References & AI Image Generation Prompts
 
-**Length rule (minimization, not padding):** ~200 words is the ceiling for a non-Demoly profile (matching the approved sample's Loom section). 140–170 words is the preferred floor. If a tool's relevant information fits in 130 words, stop at 130 words — do not pad to match another section's length. Demoly's profile runs longer (240–280 words) because it carries the TL;DR anchor and sets the comparison bar, not because of any padding.
+Whenever a visual reference / screenshot callout is included in the article, do **NOT** output a simple one-line label. Instead, provide a **complete, production-ready AI Image Generation Prompt** so the admin/editor can immediately copy-paste the prompt into Midjourney, DALL-E 3, Gemini Imagen, or Flux to generate the exact screenshot/diagram.
+
+### Formatting Template:
+```markdown
+> 📸 **Visual Reference & AI Image Generation Prompt:**
+> - **Visual Description:** [1-2 sentences explaining what the UI mockup / workflow diagram displays]
+> - **Ready-to-Use AI Prompt:** `[A complete copy-pasteable prompt specifying: clean modern SaaS UI mockup, macOS browser window controls, specific workflow interface, glowing accents (#FF5722 brand orange for Demoly / competitor brand color), callout annotations, high resolution, minimalist light background, 16:9 aspect ratio --ar 16:9]`
+```
+
+### Examples:
+
+**For Demoly Profile:**
+```markdown
+> 📸 **Visual Reference & AI Image Generation Prompt:**
+> - **Visual Description:** Annotated screenshot of the Demoly player showing an interactive search query jumping directly to an unvoiced setting change with timestamped markers.
+> - **Ready-to-Use AI Prompt:** `Clean, modern SaaS web application UI mockup in light minimalist aesthetic, showing an interactive browser window with Demoly live walkthrough player. An open floating search drawer on the right displays the query "Where did you create the project?" with 3 timestamped results (02:14, 02:16, 02:24) highlighted in brand orange (#FF5722). Crisp typography, subtle drop shadow, macOS window dots, 4k resolution, 16:9 aspect ratio --ar 16:9`
+```
+
+**For Competitor Profiles (e.g. Loom, Tango, Scribe):**
+```markdown
+> 📸 **Visual Reference & AI Image Generation Prompt:**
+> - **Visual Description:** Standard screen recording interface showing linear video timeline and audio waveform.
+> - **Ready-to-Use AI Prompt:** `Sleek SaaS software interface mockup showing a modern video recording timeline, audio waveform scrub bar, and share link modal. Minimalist UI layout, dark-mode accents with electric purple lighting, crisp vector design, 16:9 aspect ratio --ar 16:9`
+```
 
 ---
 

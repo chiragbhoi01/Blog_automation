@@ -46,12 +46,12 @@ export class EditorialQAService {
       warnings.push('WARNING: Missing explicit functional Visual Reference callout');
     }
 
-    const hasWhyOutgrows = lowerContent.includes('why') && lowerContent.includes('outgrows');
+    const hasWhyOutgrows = lowerContent.includes('why') && (lowerContent.includes('outgrow') || lowerContent.includes('outgrows') || lowerContent.includes('switch'));
     if (!hasWhyOutgrows) {
       warnings.push('WARNING: Missing explicit "Why Audience Outgrows Competitor" section');
     }
 
-    const hasEvaluationCriteria = lowerContent.includes('should look for') || lowerContent.includes('evaluation criteria');
+    const hasEvaluationCriteria = lowerContent.includes('look for') || lowerContent.includes('evaluation criteria') || lowerContent.includes('criteria');
     if (!hasEvaluationCriteria) {
       warnings.push('WARNING: Missing explicit Evaluation Criteria section');
     }

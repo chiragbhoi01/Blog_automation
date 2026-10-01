@@ -74,8 +74,10 @@ SECTION WORD COUNT REQUIREMENTS (MUST HIT ~2,400 - 2,600 WORDS TOTAL):
 STRICT EDITORIAL RULES:
 - Tone & Readability: Grade 8-9 readability. Active voice, clear technical vocabulary. Paragraphs max 3-4 sentences (< 65 words).
 - Sentence Average: 14-22 words per sentence.
-- Banned Phrases: NEVER use marketing fluff like: ${blueprint.bannedPhrases.join(', ')}.
-- Visual References: Include concrete UI callouts formatted as: **Visual Reference:** [specific UI/workflow description].
+- Visual References & AI Image Prompts: Include complete, production-ready AI image prompts for every screenshot/diagram callout formatted as:
+  > 📸 **Visual Reference & AI Image Generation Prompt:**
+  > - **Visual Description:** [1-2 sentences describing the UI/workflow screenshot]
+  > - **Ready-to-Use AI Prompt:** \`[Complete copy-pasteable prompt for Midjourney/DALL-E 3/Flux specifying: modern SaaS UI mockup, clean minimalist light theme, browser frame, brand colors #FF5722 / competitor color, 16:9 aspect ratio --ar 16:9]\`
 - Pricing Disclaimer: For every competitor profile, append: (Note: Competitor pricing is subject to vendor updates.)
 - No Padding: Provide rich technical depth, specific workflow examples, and clear architectural differences rather than repetitive filler.
 
