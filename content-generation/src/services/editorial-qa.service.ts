@@ -78,8 +78,8 @@ export class EditorialQAService {
       }
 
       const faqQuestionMatches = faqBody.match(/(###\s+.+\?|\*\*.*?\?\*\*|\n\d+\.\s+.*?\?)/g) || [];
-      if (faqQuestionMatches.length !== 5) {
-        hardBlocks.push(`HARD_BLOCK: FAQ section must contain exactly 5 questions. Found ${faqQuestionMatches.length}.`);
+      if (faqQuestionMatches.length < 4 || faqQuestionMatches.length > 5) {
+        hardBlocks.push(`HARD_BLOCK: FAQ section must contain 4 to 5 questions. Found ${faqQuestionMatches.length}.`);
         checks.faq = false;
       }
 

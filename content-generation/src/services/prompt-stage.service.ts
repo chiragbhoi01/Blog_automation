@@ -49,7 +49,7 @@ H1: Best [Competitor] Alternatives for [Audience]
   - H3: 2. [Competitor Tool]: Best for [Specific Use Case]
 - H2: Feature and Use-Case Comparison Matrix (Structured <table> node)
 - H2: Which [Competitor] Alternative Should Your [Audience] Choose? (Conclusion)
-- H2: Frequently Asked Questions (EXACTLY 5 FAQs - Must be the final substantive section!)`;
+- H2: Frequently Asked Questions (4 to 5 High-Intent FAQs - Must be the final substantive section!)`;
 
     const writingPrompt = masterPromptOverride
       ? `${masterPromptOverride}\n\n---\n\nTARGET ARTICLE INPUT:\nTitle: "${title}"\nKeywords: ${kwList}\n\nCRITICAL LENGTH MANDATE: You MUST write the complete, full-length article targeting 2,400 to 2,600 words total. Do NOT summarize, truncate, or stop early. Ensure every tool profile and analysis section is written with rich technical depth and complete workflow details.`
@@ -69,7 +69,7 @@ SECTION WORD COUNT REQUIREMENTS (MUST HIT ~2,400 - 2,600 WORDS TOTAL):
 6. Competitor Profiles (Tools #2 through #5): 140-200 words each (Detailed overview, core workflow, 3 factual strengths, 2 factual limitations, pricing and seat structure with vendor disclaimer).
 7. Feature and Use-Case Comparison Matrix: 120-160 words lead-in + complete HTML <table> containing columns: Tool | Primary Use Case | Capture Technology | Searchability | Privacy Controls | Free Viewer Access | Starting Price.
 8. Which Tool Should You Choose (Conclusion): 120-160 words (Substantive decision summary based on team size, workflow complexity, and client access needs).
-9. Frequently Asked Questions: 200-250 words total (EXACTLY 5 FAQs - MUST be the final substantive section ## Frequently Asked Questions. Each answer direct and concise <= 45 words).
+9. Frequently Asked Questions: 200-250 words total (4 to 5 FAQs - MUST be the final substantive section ## Frequently Asked Questions. Each question formatted as ### [Question]? with a 2-4 sentence direct, concise answer <= 45 words).
 
 STRICT EDITORIAL RULES:
 - Tone & Readability: Grade 8-9 readability. Active voice, clear technical vocabulary. Paragraphs max 3-4 sentences (< 65 words).
