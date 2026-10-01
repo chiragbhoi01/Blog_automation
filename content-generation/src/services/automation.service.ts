@@ -1,9 +1,12 @@
 import { geminiService } from './gemini.service';
+import { imageGeneratorService } from './image-generator.service';
 import { automationRepository } from '../repositories/automation.repository';
 import { postRepository } from '../repositories/post.repository';
 import { authorRepository } from '../repositories/author.repository';
 import { categoryRepository } from '../repositories/category.repository';
+import { tagRepository } from '../repositories/tag.repository';
 import { convertMarkdownToHtml } from '../utils/markdown-to-html';
+import { generateBlogTags } from '../utils/tag-generator';
 import {
   BlogGenerationJob,
   BlogTopic,
@@ -140,6 +143,35 @@ export class AutomationService {
       const sanitizedContent = this.sanitizeContent(generated.content);
       const uniqueSlug = await this.generateUniqueSlug(generated.slug);
 
+      // 7.5 Generate & Upload Brand-Consistent Featured Image (Supademo / Demoly Theme)
+      let featuredImageUrl = '';
+      try {
+        const generatedImgUrl = await imageGeneratorService.generateAndUploadFeaturedImage(
+          generated.title,
+          uniqueSlug,
+          generated.excerpt
+        );
+        if (generatedImgUrl) {
+          featuredImageUrl = generatedImgUrl;
+        }
+      } catch (imgErr) {
+        console.warn('[AutomationService] Featured image generation failed, proceeding with draft:', imgErr);
+      }
+
+      // 7.8 Generate & Resolve 5-6 SEO Tags
+      const tagNames = generateBlogTags(generated.title, categoryId, keywords);
+      const tagIds: string[] = [];
+      for (const tName of tagNames) {
+        try {
+          const tDoc = await tagRepository.findOrCreate(tName);
+          if (tDoc && !tagIds.includes(tDoc._id)) {
+            tagIds.push(tDoc._id);
+          }
+        } catch (tErr) {
+          console.warn(`[AutomationService] Could not resolve tag "${tName}":`, tErr);
+        }
+      }
+
       // 8. Create NEW Post with status: DRAFT
       const newPost = await postRepository.create({
         title: generated.title,
@@ -148,13 +180,14 @@ export class AutomationService {
         content: sanitizedContent,
         authorId,
         categoryId,
-        tagIds: [],
+        tagIds,
         status: 'DRAFT',
-        featuredImage: '',
+        featuredImage: featuredImageUrl,
         seo: {
           seoTitle: generated.seoTitle,
           seoDescription: generated.seoDescription,
           canonicalUrl: `https://demoly.dev/blog/${uniqueSlug}`,
+          ogImage: featuredImageUrl || undefined,
         },
       });
 

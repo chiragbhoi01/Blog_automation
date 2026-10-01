@@ -378,6 +378,9 @@ async function main() {
     }
 
     const postResult = targetPost || existingPost;
+    if (!postResult) {
+      throw new Error('Failed to retrieve created or updated post record.');
+    }
 
     const resolvedCategoryObj = categories.find((c) => c._id === categoryId);
     const resolvedTagsList = allDbTags.filter((t) => resolvedTagIds.includes(t._id)).map((t) => `#${t.name}`);

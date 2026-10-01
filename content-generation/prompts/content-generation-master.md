@@ -156,14 +156,15 @@ Core principle: information density over word count. Never pad a section to hit 
 
 ## 7. Writing style
 
-- **Reading level:** Grade 8–9. Technically credible, not academic.
-- **Sentence length:** 14–22 words average, grammatically complete, no fragments.
-- **Paragraph length:** max 3–4 sentences / ~65 words.
-- **Voice:** active ("Demoly indexes visual clicks," not "Visual clicks are indexed by Demoly").
+- **Reading level:** Grade 7–8. Clear, accessible, and easily understandable for non-technical readers (agency clients, non-technical founders, operations managers, and designers).
+- **Plain Language Principle:** Avoid unnecessary technical jargon. If a technical term is essential (e.g. DOM, console logs, redaction, API keys), immediately explain it in simple, everyday language (e.g., *"DOM capture records interactive web elements you click, rather than a flat video file"*).
+- **Sentence length:** 12–18 words average, short, punchy, and clear.
+- **Paragraph length:** max 2–3 sentences / ~50 words.
+- **Voice:** friendly, conversational, and direct ("Demoly lets your clients ask questions and jumps to the exact moment," not passive corporate speak).
 - **Em-dashes:** minimize; use colons, commas, or restructured sentences instead. In headings use a colon ("Tool: Best for X"), never an em-dash.
-- **Banned:** paradigm shift, revolutionize, digital transformation, fast-paced world, seamlessly, game-changer, empower, intuitive UI, cutting-edge, robust, transformative, powerful (unless the specific claim earns the word).
-- **Acceptable technical vocabulary:** DOM element, console errors, network payload, frame-layer redaction, API keys, client PII, staging credentials, multi-tenant.
-- **Never fabricate:** statistics, quotes, customer stories.
+- **Banned:** paradigm shift, revolutionize, digital transformation, fast-paced world, seamlessly, game-changer, empower, intuitive UI, cutting-edge, robust, transformative, synergistic, leverage.
+- **Never fabricate:** statistics, quotes, customer stories, or competitor logos/claims.
+- **Official Competitor Verification:** Always verify competitor tool names, official logos, brand colors, and current tier structures against their official live website pages. Never guess or hallucinate competitor details.
 - **Openings to avoid:** "In today's fast-paced world...", "As businesses continue to...", "In the ever-evolving landscape..."
 
 ---
@@ -257,6 +258,19 @@ The model must return **only** the following structure — no preamble, no "Here
 ```
 
 `is_published` must always be `false` on output. Setting it `true` is a human action outside this system.
+
+---
+
+## 13.5. Featured Image & Competitor Branding Pipeline Specification
+
+Every blog post generated must include a cohesive, high-converting featured image adhering to the **Demoly/Supademo Visual Design System**:
+
+1. **Resolution & Dimensions:** Standard 16:9 (`1200x630` px) crisp PNG.
+2. **Brand Anchors:** Demoly Logo in top-left, signature Demoly Orange (`#FF5722`) + deep charcoal (`#111827`) typography.
+3. **Competitor Brand Badges (1-on-1 & Alternatives):** When an article focuses on a competitor (e.g., Loom, Scribe, Tango, Supademo, Guidde, etc.), the competitor's signature brand color and badge icon (e.g. `VS ✦ Loom`, `VS ◈ Scribe`, `VS ▲ Tango`) must be rendered alongside the category pill.
+4. **Hero UI Product Mockup:** Browser window with Demoly interactive player scrubber + context-aware floating AI Search Drawer containing article-specific questions and timestamped jump points.
+5. **Micro-Annotations:** Playful handwritten notes and corner framing brackets in brand accent.
+6. **Cloudinary & CMS Sync:** Automated generation via `ImageGeneratorService`, upload to Cloudinary `demoly-cms` folder, and registration into MongoDB `posts` & `media` collections.
 
 ---
 

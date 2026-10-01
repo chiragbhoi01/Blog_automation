@@ -33,6 +33,43 @@ export class TagRepository {
     const doc = await col.findOne({ slug });
     return doc ? mapDocToTag(doc) : null;
   }
+
+  async create(data: { name: string; slug?: string }): Promise<Tag> {
+    const col = await this.collection();
+    const slug = (data.slug || data.name)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+    
+    const now = new Date();
+    const doc: TagDoc = {
+      _id: new ObjectId(),
+      name: data.name.trim(),
+      slug,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    await col.insertOne(doc);
+    return mapDocToTag(doc);
+  }
+
+  async findOrCreate(name: string): Promise<Tag> {
+    const cleanName = name.trim();
+    const slug = cleanName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    const existing = await this.findBySlug(slug);
+    if (existing) return existing;
+
+    const col = await this.collection();
+    const existingByName = await col.findOne({ name: { $regex: new RegExp(`^${cleanName}$`, 'i') } });
+    if (existingByName) return mapDocToTag(existingByName);
+
+    return this.create({ name: cleanName, slug });
+  }
 }
 
 export const tagRepository = new TagRepository();
