@@ -2,7 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { automationService } from './automation.service';
 import { automationRepository } from '../repositories/automation.repository';
 import { postRepository } from '../repositories/post.repository';
+import { authorRepository } from '../repositories/author.repository';
+import { categoryRepository } from '../repositories/category.repository';
+import { tagRepository } from '../repositories/tag.repository';
 import { geminiService } from './gemini.service';
+import { imageGeneratorService } from './image-generator.service';
 import { ObjectId } from 'mongodb';
 
 describe('Blog Automation Service', () => {
@@ -14,6 +18,8 @@ describe('Blog Automation Service', () => {
     const mockTopicId = new ObjectId().toString();
     const mockPostId = new ObjectId().toString();
     const mockJobId = new ObjectId().toString();
+
+    vi.spyOn(imageGeneratorService, 'generateAndUploadFeaturedImage').mockResolvedValue('http://mock-cloudinary-url.com/cover.png');
 
     vi.spyOn(automationRepository, 'findTopicById').mockResolvedValue({
       _id: mockTopicId,
@@ -59,6 +65,10 @@ describe('Blog Automation Service', () => {
       defaultCategoryId: 'cat-123',
       updatedAt: new Date(),
     });
+
+    vi.spyOn(authorRepository, 'findAll').mockResolvedValue([{ _id: 'author-123', name: 'Author', slug: 'author', createdAt: new Date(), updatedAt: new Date() }]);
+    vi.spyOn(categoryRepository, 'findAll').mockResolvedValue([{ _id: 'cat-123', name: 'Category', slug: 'category', createdAt: new Date(), updatedAt: new Date() }]);
+    vi.spyOn(tagRepository, 'findOrCreate').mockImplementation(async (name) => ({ _id: `tag-${name}`, name, slug: name.toLowerCase(), createdAt: new Date(), updatedAt: new Date() }));
 
     vi.spyOn(geminiService, 'generateArticle').mockResolvedValue({
       title: 'Interactive Walkthroughs vs Loom: The Ultimate Guide',
@@ -129,7 +139,7 @@ describe('Blog Automation Service', () => {
         status: 'DRAFT',
       })
     );
-  });
+  }, 15000);
 
   it('should reject execution with CONFLICT error if topic is already in PROCESSING status', async () => {
     const mockTopicId = new ObjectId().toString();

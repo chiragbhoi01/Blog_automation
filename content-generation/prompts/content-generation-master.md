@@ -125,29 +125,54 @@ Four moves, one paragraph, 100–140 words including the TL;DR:
 
 ## 5.5. In-Article Visual References & AI Image Generation Prompts
 
-Whenever a visual reference / screenshot callout is included in the article, do **NOT** output a simple one-line label. Instead, provide a **complete, production-ready AI Image Generation Prompt** so the admin/editor can immediately copy-paste the prompt into Midjourney, DALL-E 3, Gemini Imagen, or Flux to generate the exact screenshot/diagram.
+Whenever a visual reference / screenshot callout is included in the article, execute the **Visual Decision System**:
 
-### Formatting Template:
+1. **Exact Product UI Required**: If the visual requires displaying exact Demoly player controls, redaction workflows, or real feature settings, do **NOT** fabricate product UI with AI. Output an **Admin Screenshot Request** (see template below).
+2. **Conceptual / Editorial Visual Allowed**: If the visual is a workflow diagram, checklist, architecture flow, or conceptual comparison, output a **complete, production-ready AI Image Generation Prompt**.
+3. **Style Reference Rule**: All AI prompts MUST instruct the image generator to use the vertical's reference image (`verticals/vertical_images/vertical_<N>.png`) as a **STYLE REFERENCE** (composition, spacing, #FF5722 orange accent, #111827 dark charcoal text, warm off-white background, Inter font).
+
+### Option A: Ready-to-Use AI Image Prompt Template
 ```markdown
 > 📸 **Visual Reference & AI Image Generation Prompt:**
 > - **Visual Description:** [1-2 sentences explaining what the UI mockup / workflow diagram displays]
-> - **Ready-to-Use AI Prompt:** `[A complete copy-pasteable prompt specifying: clean modern SaaS UI mockup, macOS browser window controls, specific workflow interface, glowing accents (#FF5722 brand orange for Demoly / competitor brand color), callout annotations, high resolution, minimalist light background, 16:9 aspect ratio --ar 16:9]`
+> - **Style Reference:** `verticals/vertical_images/vertical_<N>.png`
+> - **Ready-to-Use AI Prompt:** `[Clean, modern SaaS editorial visual mockup in light minimalist aesthetic, using the visual composition and color palette of vertical_<N>.png (#FF5722 brand orange accent, #111827 dark text, off-white background). Specific concept details... 16:9 aspect ratio --ar 16:9]`
+```
+
+### Option B: Admin Screenshot Request Template (For Real Product UI)
+```markdown
+> 📸 **ADMIN SCREENSHOT REQUEST:**
+> - **ARTICLE:** [Article Title]
+> - **VERTICAL:** [Vertical Name]
+> - **WHY SCREENSHOT IS REQUIRED:** [Specific reason why real UI is necessary vs AI visual]
+> - **PAGE / URL:** [Target app URL]
+> - **ACTIONS:** [Exact click path / steps]
+> - **MUST SHOW:** [Key interface elements]
+> - **MUST HIDE:** Passwords, API keys, customer data, production credentials.
+> - **SAVE AS:** `content-generation/drafts/assets/[article-slug]-screenshot-01.png`
 ```
 
 ### Examples:
 
-**For Demoly Profile:**
+**For Conceptual Demoly Features (AI Generation Allowed):**
 ```markdown
 > 📸 **Visual Reference & AI Image Generation Prompt:**
-> - **Visual Description:** Annotated screenshot of the Demoly player showing an interactive search query jumping directly to an unvoiced setting change with timestamped markers.
-> - **Ready-to-Use AI Prompt:** `Clean, modern SaaS web application UI mockup in light minimalist aesthetic, showing an interactive browser window with Demoly live walkthrough player. An open floating search drawer on the right displays the query "Where did you create the project?" with 3 timestamped results (02:14, 02:16, 02:24) highlighted in brand orange (#FF5722). Crisp typography, subtle drop shadow, macOS window dots, 4k resolution, 16:9 aspect ratio --ar 16:9`
+> - **Visual Description:** Annotated diagram showing an interactive search query jumping directly to an unvoiced setting change with timestamped markers.
+> - **Style Reference:** `verticals/vertical_images/vertical_2.png`
+> - **Ready-to-Use AI Prompt:** `Clean, modern SaaS web application UI mockup in light minimalist aesthetic, matching the composition and color system of vertical_2.png (#FF5722 Demoly orange accent, dark charcoal typography, warm off-white background). An open floating search drawer on the right displays the query "Where did you create the project?" with 3 timestamped results (02:14, 02:16, 02:24). Crisp Inter typography, subtle drop shadow, macOS window dots, 16:9 aspect ratio --ar 16:9`
 ```
 
-**For Competitor Profiles (e.g. Loom, Tango, Scribe):**
+**For Real Demoly Admin Settings (Admin Screenshot Required):**
 ```markdown
-> 📸 **Visual Reference & AI Image Generation Prompt:**
-> - **Visual Description:** Standard screen recording interface showing linear video timeline and audio waveform.
-> - **Ready-to-Use AI Prompt:** `Sleek SaaS software interface mockup showing a modern video recording timeline, audio waveform scrub bar, and share link modal. Minimalist UI layout, dark-mode accents with electric purple lighting, crisp vector design, 16:9 aspect ratio --ar 16:9`
+> 📸 **ADMIN SCREENSHOT REQUEST:**
+> - **ARTICLE:** Best Scribe Alternatives for Web App Walkthroughs
+> - **VERTICAL:** Vertical 2 (Competitor: Alternatives)
+> - **WHY SCREENSHOT IS REQUIRED:** Requires exact representation of Demoly workspace API token configuration drawer.
+> - **PAGE / URL:** https://app.demoly.dev/settings/api
+> - **ACTIONS:** Open Settings -> Select API Tokens -> Click Generate Token
+> - **MUST SHOW:** Active API token list and copy button.
+> - **MUST HIDE:** Actual API secret keys and private workspace URLs.
+> - **SAVE AS:** `content-generation/drafts/assets/best-scribe-alternatives-screenshot-01.png`
 ```
 
 ---

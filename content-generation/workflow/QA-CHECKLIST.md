@@ -63,6 +63,17 @@ Run this against every generated article before it is created as a CMS draft. A 
 - [ ] Demoly profile: 240–280 words
 - [ ] FAQ total: 200–250 words
 
+## Visual QA & Image Decision
+
+- [ ] Featured cover image path specified in metadata (`assets/<slug>-cover.png` or Cloudinary URL)
+- [ ] Visual Decision System applied for every in-article visual reference:
+  - Reused existing approved asset if available
+  - Outputted Admin Screenshot Request if exact Demoly UI / feature state required (no fabricated product UI)
+  - Specified ready-to-use AI prompt referencing vertical reference image (`verticals/vertical_images/vertical_<N>.png`) for conceptual visuals
+- [ ] AI prompts enforce clean, editorial, non-cluttered B2B SaaS aesthetic (Inter font, #FF5722 Demoly orange accent, #111827 dark charcoal, warm off-white background)
+- [ ] No prohibited AI tropes present in prompts (excessive 3D, heavy glassmorphism, generic robots, floating stock elements)
+- [ ] All images follow 16:9 standard aspect ratio (1200×630 px)
+
 ## Final status
 
 Record one of:
